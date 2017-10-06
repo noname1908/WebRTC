@@ -67,27 +67,36 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const openCamera = __webpack_require__(1);
+const openStream = __webpack_require__(1);
 
-openCamera();
+openStream();
+
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-openCamera = () => {
+const playVideo = __webpack_require__(2);
+
+openStream = () => {
     navigator.mediaDevices.getUserMedia({ audio: false, video: true })
-        .then(stream => {
-            const video = document.getElementById('localStream');
-            video.srcObject = stream;
-            video.onloadedmetadata = () => {
-                video.play();
-            };
-        })
+        .then(stream => playVideo(stream, 'localStream'))
         .catch(err => console.log(err));
 };
 
-module.exports = openCamera;
+module.exports = openStream;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+playVideo = (stream, idVideo) => {
+    const video = document.getElementById(idVideo);
+    video.srcObject = stream;
+    video.onloadedmetadata = () => video.play();
+};
+
+module.exports = playVideo;
 
 /***/ })
 /******/ ]);

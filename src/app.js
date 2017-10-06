@@ -1,3 +1,3 @@
-const openCamera = require('./openCamera');
+const openStream = require('./openStream');
 
-openCamera();
+openStream();
